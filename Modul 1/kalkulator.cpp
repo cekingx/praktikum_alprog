@@ -21,6 +21,7 @@ void menu(){
     char again;
 
     do{
+        system("cls");
         cout << "Kalkulator ne bro. Pilih menu malu : " << endl;
         cout << "1. Penjumlahan" << endl;
         cout << "2. Pengurangan" << endl;
