@@ -44,52 +44,52 @@ void menu(){
               cout << "Pilihan > "; cin >> menu;
 
               switch(menu){
-              case 1:{
-                     cout << "Masukkan Panjang  > "; cin >> x;
-                     cout << "Masukkan Lebar    > "; cin >> y;
-                     cout << "Luas              : " << LuasPersegiPanjang(x,y) << endl;
-                     cout << "Keliling          : " << KllPersegiPanjang(x,y) << endl;
-                     cout << "Hitung lagi [y/t] > "; cin >> again;
-                     break;
-              }
+                  case 1:{
+                        cout << "Masukkan Panjang  > "; cin >> x;
+                        cout << "Masukkan Lebar    > "; cin >> y;
+                        cout << "Luas              : " << LuasPersegiPanjang(x,y) << endl;
+                        cout << "Keliling          : " << KllPersegiPanjang(x,y) << endl;
+                        cout << "Hitung lagi [y/t] > "; cin >> again;
+                        break;
+                  }
 
-              case 2:{
-                     cout << "Masukkan Sisi A   > "; cin >> x;
-                     cout << "Masukkan Sisi B   > "; cin >> y;
-                     cout << "Masukkan Sisi C   > "; cin >> z;
-                     cout << "Luas              : " << LuasSegitigaSembarang(x,y,z) << endl;
-                     cout << "Keliling          : " << KllSegitigaSembarang(x,y,z) << endl;
-                     cout << "Hitung lagi [y/t] > "; cin >> again;
-                     break;
-              }
+                  case 2:{
+                        cout << "Masukkan Sisi A   > "; cin >> x;
+                        cout << "Masukkan Sisi B   > "; cin >> y;
+                        cout << "Masukkan Sisi C   > "; cin >> z;
+                        cout << "Luas              : " << LuasSegitigaSembarang(x,y,z) << endl;
+                        cout << "Keliling          : " << KllSegitigaSembarang(x,y,z) << endl;
+                        cout << "Hitung lagi [y/t] > "; cin >> again;
+                        break;
+                  }
 
-              case 3:{
-                     cout << "Masukkan Jari-Jari  > "; cin >> x;
-                     cout << "Luas                : " << LuasLingkaran(x) << endl;
-                     cout << "Keliling            : " << KllLingkaran(x) << endl;
-                     cout << "Hitung lagi [y/t]   > "; cin >> again;
-                     break;
-              }
+                  case 3:{
+                        cout << "Masukkan Jari-Jari  > "; cin >> x;
+                        cout << "Luas                : " << LuasLingkaran(x) << endl;
+                        cout << "Keliling            : " << KllLingkaran(x) << endl;
+                        cout << "Hitung lagi [y/t]   > "; cin >> again;
+                        break;
+                  }
 
-              case 4:{
-                     cout << "Masukkan Sisi Atas  > "; cin >> x;
-                     cout << "Masukkan Sisi Bawah > "; cin >> y;
-                     cout << "Masukkan Tinggi     > "; cin >> z;
-                     cout << "Luas                : " << LuasTrapesium(x,y,z) << endl;
-                     cout << "Keliling            : " << KllTrapesium(x,y,z) << endl;
-                     cout << "Hitung lagi [y/t]   > "; cin >> again;
-                     break;
-              }
+                  case 4:{
+                        cout << "Masukkan Sisi Atas  > "; cin >> x;
+                        cout << "Masukkan Sisi Bawah > "; cin >> y;
+                        cout << "Masukkan Tinggi     > "; cin >> z;
+                        cout << "Luas                : " << LuasTrapesium(x,y,z) << endl;
+                        cout << "Keliling            : " << KllTrapesium(x,y,z) << endl;
+                        cout << "Hitung lagi [y/t]   > "; cin >> again;
+                        break;
+                  }
 
-              case 5:{
-                     cout << "Masukkan Alas        > "; cin >> x;
-                     cout << "Masukkan Sisi Miring > "; cin >> y;
-                     cout << "Masukkan Tinggi      > "; cin >> z;
-                     cout << "Luas                 : " << LuasJajargenjang(x,y,z) << endl;
-                     cout << "Keliling             : " << KllJajargenjang(x,y,z) << endl;
-                     cout << "Hitung lagi [y/t]    > "; cin >> again;
-                     break;
-              }
+                  case 5:{
+                        cout << "Masukkan Alas        > "; cin >> x;
+                        cout << "Masukkan Sisi Miring > "; cin >> y;
+                        cout << "Masukkan Tinggi      > "; cin >> z;
+                        cout << "Luas                 : " << LuasJajargenjang(x,y,z) << endl;
+                        cout << "Keliling             : " << KllJajargenjang(x,y,z) << endl;
+                        cout << "Hitung lagi [y/t]    > "; cin >> again;
+                        break;
+                  }
               }
        }while(again == 'y' || again == 'Y');
 }

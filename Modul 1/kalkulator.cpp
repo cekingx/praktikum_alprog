@@ -95,7 +95,7 @@ float bagi(float a, float b){
 
 int mod(float a, float b){
     int c,x,y;
-    x=(int)a;
+    x=(int)a; //typecasting
     y=(int)b;
 
     c=x%y;
