@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define phi 3.14 //nilai phi
+#define PI 3.14 //nilai phi
 
 float LuasPersegiPanjang(float a, float b); // a = panjang, b = lebar
 float LuasSegitigaSembarang(float a, float b, float c); // a = sisi segitiga, b = sisi segitiga, c = sisi segitiga
@@ -113,7 +113,7 @@ float LuasSegitigaSembarang(float a, float b, float c){ // a = sisi segitiga, b 
        
        s = 0.5 * (a+b+c);
        l = sqrt(s*(s-a)*(s-b)*(s-c));
-        return l;
+       return l;
 }
 
 float KllSegitigaSembarang(float a, float b, float c){ // a = sisi segitiga, b = sisi segitiga, c = sisi segitiga
@@ -121,11 +121,11 @@ float KllSegitigaSembarang(float a, float b, float c){ // a = sisi segitiga, b =
 }
 
 float LuasLingkaran(float r){ // r = jari-jari
-       return(phi*r*r);
+       return(PI*r*r);
 }
 
 float KllLingkaran(float r){ // r = jari-jari
-       return(2*phi*r);
+       return(2*PI*r);
 }
 
 float LuasTrapesium(float a, float b, float t){ // a = sisi atas, b = sisi bawah, t = tinggi trapesium
