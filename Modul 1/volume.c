@@ -173,7 +173,7 @@ void HitungVolumeLimas(float s, float t){
 
        n = (3*s)/2;
        la = sqrt(n*(n-s)*(n-s)*(n-s));
-       volume = (1/3)*la*t;
+       volume = (0.33)*la*t; // (1/3) = 0.33
        printf("Volume limas adalah : %.2f \n", volume);
 }
 
