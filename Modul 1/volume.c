@@ -113,7 +113,7 @@ void menu(){
                             break;
                      }
                      case 3:{
-                            printf("\n\tMasukkan sisi alas       : "); scanf("%f", &p);
+                            printf("\n\tMasukkan sisi alas       : "); scanf("%f", &s);
                             printf("\tMasukkan luas sisi limas : "); scanf("%f", &ls);
                             printf("\tMasukkan tinggi          : "); scanf("%f", &t);
                             HitungVolumeLimas(s, t);
