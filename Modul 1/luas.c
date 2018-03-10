@@ -15,6 +15,12 @@ float KllLingkaran(float r); // r = jari-jari
 float KllTrapesium(float a, float b, float t); // a = sisi atas, b = sisi bawah, t = tinggi trapesium
 float KllJajargenjang(float a, float b, float t); // a = alas, b = sisi miring, t = tinggi
 
+void PersegiPanjang();
+void SegitigaSembarang();
+void Lingkaran();
+void Trapesium();
+void Jajargenjang();
+
 void menu();
 
 int main() {
@@ -105,7 +111,7 @@ float KllPersegiPanjang(float a, float b){ // a = sisi datar, b = sisi tegak
 }
 
 float LuasSegitigaSembarang(float a, float b, float c){ // a = sisi segitiga, b = sisi segitiga, c = sisi segitiga
- float l, s;
+      float l, s;
        /*
        l = luas
        s = 0.5 * keliling

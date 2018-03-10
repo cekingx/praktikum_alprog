@@ -7,12 +7,15 @@ int validasi(char* x);
 
 int main(){
        char s[10];
-       int testValid;
+       int testValid ;
+       float y;
 
        printf("Masukkan data berupa angka > "); scanf("%s", &s);
        testValid = validasi(s);
        if(testValid == 1){
               printf("Data berupa angka \n");
+              y = atof(s);
+              printf("s + 3.14 adalah %.2f\n", y+3.14);
        }
        else{
               printf("Data bukan angka\n");
