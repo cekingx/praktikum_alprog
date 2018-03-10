@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
+#include <ctype.h>
 #define PI 3.14
 
 
@@ -71,7 +73,15 @@ void HitungLuasTabung(float r, float t);
  t = tinggi
 */
 
+void Balok();
+void Bola();
+void Limas();
+void Prisma();
+void Tabung();
+
 void menu();
+int validasi(char* x);
+float konversi(char* x);
 
 
 int main(){
@@ -99,39 +109,23 @@ void menu(){
               
               switch(pilihan){
                      case 1:{
-                            printf("\n\tMasukkan panjang  : "); scanf("%f", &p);
-                            printf("\tMasukkan lebar    : "); scanf("%f", &l);
-                            printf("\tMasukkan tinggi   : "); scanf("%f", &t);
-                            HitungVolumeBalok(p, l, t);
-                            HitungLuasBalok(p, l, t);
+                            Balok();
                             break;
                      }
                      case 2:{
-                            printf("\n\tMasukkan jari-jari  : "); scanf("%f", &r);
-                            HitungVolumeBola(r);
-                            HitungLuasBola(r);
+                            Bola();
                             break;
                      }
                      case 3:{
-                            printf("\n\tMasukkan sisi alas       : "); scanf("%f", &s);
-                            printf("\tMasukkan luas sisi limas : "); scanf("%f", &ls);
-                            printf("\tMasukkan tinggi          : "); scanf("%f", &t);
-                            HitungVolumeLimas(s, t);
-                            HitungLuasLimas(s, ls);
+                            Limas();
                             break;
                      }
                      case 4:{
-                            printf("\n\tMasukkan sisi alas  : "); scanf("%f", &s);
-                            printf("\tMasukkan tinggi     : "); scanf("%f", &t);
-                            HitungVolumePrisma(s, t);
-                            HitungLuasPrisma(s, t);
+                            Prisma();
                             break;
                      }
                      case 5:{
-                            printf("\n\tMasukkan jari-jari  : "); scanf("%f", &r);
-                            printf("\tMasukkan tinggi     : "); scanf("%f", &t);
-                            HitungVolumeTabung(r, t);
-                            HitungLuasTabung(r, t);
+                            Tabung();
                             break;
                      }
               }
@@ -139,6 +133,157 @@ void menu(){
               scanf("%s", &ulang);
        }while(ulang == 'y' || ulang == 'Y');
 }
+
+void Balok(){
+       char input[10];
+       float p,l,t;
+       //panjang
+       printf("\n\tMasukkan panjang  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	p = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //lebar
+       printf("\n\tMasukkan lebar  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	l = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //tinggi
+       printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	t = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       
+       HitungVolumeBalok(p, l, t);
+       HitungLuasBalok(p, l, t);
+       end:;
+}
+
+void Bola(){
+       char input[10];
+       float r;
+       printf("\n\tMasukkan jari jari  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	r = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+       HitungVolumeBola(r);
+       HitungLuasBola(r);
+
+       end:;
+}
+
+void Limas(){
+       char input[10];
+       float s, ls, t;
+
+       //alas
+       printf("\n\tMasukkan alas  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	s = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //luas sisi
+       printf("\n\tMasukkan luas sisi  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	ls = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //tinggi
+       printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	t = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}  
+
+       HitungVolumeLimas(s, t);
+       HitungLuasLimas(s, ls);  
+
+       end:;  
+}
+
+void Prisma(){
+       char input[10];
+       float s, t;
+
+       //sisi alas
+       printf("\n\tMasukkan sisi alas  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	s = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //tinggi
+       printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	t = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+       HitungVolumePrisma(s, t);
+       HitungLuasPrisma(s, t);
+
+       end:;      
+}
+
+void Tabung(){
+       char input[10];
+       float r, t;
+
+       //jari-jari
+       printf("\n\tMasukkan jari-jari  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	r = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+       //tinggi
+       printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
+      	if(validasi(input) == 1){
+           	t = konversi(input);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}  
+
+       HitungVolumeTabung(r, t);
+       HitungLuasTabung(r, t);
+
+       end:;    
+}
+
 
 void HitungVolumeBalok(float p, float l, float t){
        float volume;
@@ -220,3 +365,30 @@ void HitungLuasTabung(float r, float t){
        lp = (2*la) + (kll*t);
        printf("Luas permukaan tabung adalah : %.2f \n", lp);
 }
+
+int validasi(char* x){
+       int len = strlen(x);
+       int valid = 1;
+
+     	for(int i = 0; i<len; i++){
+              if(x[i] == '.'){
+                     continue;
+              }
+              
+              if(!isdigit(x[i])){
+                     valid = 0;
+                     break;
+              }
+       }
+
+      return valid;
+}
+
+float konversi(char* x){
+       float y;
+
+       y = atof(x);
+
+       return y;
+}
+
