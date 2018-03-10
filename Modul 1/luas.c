@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
+#include <ctype.h>
 #define PI 3.14 //nilai phi
 
 float LuasPersegiPanjang(float a, float b); // a = panjang, b = lebar
@@ -14,6 +16,9 @@ float KllSegitigaSembarang(float a, float b, float c); // a = sisi segitiga, b =
 float KllLingkaran(float r); // r = jari-jari
 float KllTrapesium(float a, float b, float t); // a = sisi atas, b = sisi bawah, t = tinggi trapesium
 float KllJajargenjang(float a, float b, float t); // a = alas, b = sisi miring, t = tinggi
+
+int validasi(char* x);
+float konversi(char* x);
 
 void PersegiPanjang();
 void SegitigaSembarang();
@@ -48,52 +53,23 @@ void menu(){
               
               switch(pilihan){
                      case 1:{
-                            printf("\n\tMasukkan panjang  : ");
-                            scanf("%f", &x);
-                            printf("\tMasukkan lebar   : ");
-                            scanf("%f", &y);
-                            printf("\n\tLuas persegi panjang  : %.2f", LuasPersegiPanjang(x, y));
-                            printf("\n\tKeliling persegi panjang : %.2f", KllPersegiPanjang(x, y));
+                            PersegiPanjang();
                             break;
                      }
                      case 2:{
-                            printf("\n\tMasukkan sisi A : ");
-                            scanf("%f", &x);
-                            printf("\tMasukkan sisi B : ");
-                            scanf("%f", &y);
-                            printf("\tMasukkan sisi C : ");
-                            scanf("%f", &z);
-                            printf("\n\tLuas segitiga sembarang  : %.2f", LuasSegitigaSembarang(x, y, z));
-                            printf("\n\tKeliling Segitiga Sembarang : %.2f", KllSegitigaSembarang(x, y, z));
+                            SegitigaSembarang();
                             break;
                      }
                      case 3:{
-                            printf("\n\tMasukkan jari-jari : ");
-                            scanf("%f", &r);
-                            printf("\n\tLuas lingkaran  : %.2f", LuasLingkaran(r));
-                            printf("\n\tKeliling lingkaran : %.2f", KllLingkaran(r));
+                            Lingkaran();
                             break;
                      }
                      case 4:{
-                            printf("\n\tMasukkan sisi atas : ");
-                            scanf("%f", &x);
-                            printf("\tMasukkan sisi bawah : ");
-                            scanf("%f", &y);
-                            printf("\tMasukkan tinggi  : ");
-                            scanf("%f", &z);
-                            printf("\n\tLuas trapesium  : %.2f", LuasTrapesium(x,y,z));
-                            printf("\n\tKeliling trapesium : %.2f", KllTrapesium(x,y,z));
+                            Trapesium();
                             break;
                      }
                      case 5:{
-                            printf("\n\tMasukkan alas  : ");
-                            scanf("%f", &x);
-                            printf("\tMasukkan sisi miring : ");
-                            scanf("%f", &y);
-                            printf("\tMasukkan tinggi  : ");
-                            scanf("%f", &z);
-                            printf("\n\tLuas jajargenjang : %.2f", LuasJajargenjang(x,y,z));
-                            printf("\n\tKeliling jajargenjang : %.2f", KllJajargenjang(x,y,z));
+                            Jajargenjang();
                             break;
                      }
               }
@@ -101,6 +77,172 @@ void menu(){
               scanf("%s", &ulang);
        }while(ulang == 'y' || ulang == 'Y');
 }
+
+void PersegiPanjang(){
+      	char input1[10], input2[10];
+      	float x,y;
+
+	// panjang
+      	printf("\n\tMasukkan panjang  : "); scanf("%s", &input1);
+      	if(validasi(input1) == 1){
+           	x = konversi(input1);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+	// lebar
+	printf("\n\tMasukkan lebar    : "); scanf("%s", &input2);
+      	if(validasi(input2) == 1){
+           	y = konversi(input2);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+	printf("\n\tLuas persegi panjang  : %.2f", LuasPersegiPanjang(x, y));
+       printf("\n\tKeliling persegi panjang : %.2f", KllPersegiPanjang(x, y));
+
+	end:; //
+}
+
+void SegitigaSembarang(){
+	char input1[10], input2[10], input3[10];
+	float x,y,z;
+
+	//Sisi A
+	printf("\n\tMasukkan panjang sisi A  : "); scanf("%s", &input1);
+      	if(validasi(input1) == 1){
+           	x = konversi(input1);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Sisi B
+	printf("\n\tMasukkan panjang sisi B  : "); scanf("%s", &input2);
+      	if(validasi(input2) == 1){
+           	y = konversi(input2);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Sisi C
+	printf("\n\tMasukkan panjang sisi C  : "); scanf("%s", &input3);
+      	if(validasi(input3) == 1){
+           	z = konversi(input3);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+	
+	printf("\n\tLuas segitiga sembarang  : %.2f", LuasSegitigaSembarang(x, y, z));
+       printf("\n\tKeliling Segitiga Sembarang : %.2f", KllSegitigaSembarang(x, y, z));
+	end:;
+}
+
+void Lingkaran(){
+	char input1[10];
+	float r;
+
+	// jari-jari
+      	printf("\n\tMasukkan jari-jari  : "); scanf("%s", &input1);
+      	if(validasi(input1) == 1){
+           	r = konversi(input1);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+	printf("\n\tLuas lingkaran  : %.2f", LuasLingkaran(r));
+       printf("\n\tKeliling lingkaran : %.2f", KllLingkaran(r));
+	end:;
+}
+
+void Trapesium(){
+	char input1[10], input2[10], input3[10];
+	float x,y,z;
+
+	//Sisi atas
+	printf("\n\tMasukkan panjang sisi atas  : "); scanf("%s", &input1);
+      	if(validasi(input1) == 1){
+           	x = konversi(input1);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Sisi bawah
+	printf("\n\tMasukkan panjang sisi bawah  : "); scanf("%s", &input2);
+      	if(validasi(input2) == 1){
+           	y = konversi(input2);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Tinggi
+	printf("\n\tMasukkan tinggi  : "); scanf("%s", &input3);
+      	if(validasi(input3) == 1){
+           	z = konversi(input3);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	printf("\n\tLuas trapesium  : %.2f", LuasTrapesium(x,y,z));
+       printf("\n\tKeliling trapesium : %.2f", KllTrapesium(x,y,z));
+
+	end:;
+}
+
+void Jajargenjang(){
+	char input1[10], input2[10], input3[10];
+	float x,y,z;
+
+	//Sisi alas
+	printf("\n\tMasukkan panjang sisi alas  : "); scanf("%s", &input1);
+      	if(validasi(input1) == 1){
+           	x = konversi(input1);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Sisi miring
+	printf("\n\tMasukkan panjang sisi miring  : "); scanf("%s", &input2);
+      	if(validasi(input2) == 1){
+           	y = konversi(input2);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	//Tinggi
+	printf("\n\tMasukkan tinggi  : "); scanf("%s", &input3);
+      	if(validasi(input3) == 1){
+           	z = konversi(input3);
+      	}
+     	else{
+		printf("Inputan anda mengandung karakter yang tidak valid \n");
+		goto end; // lompat ke akhir prosedur
+      	}
+
+	printf("\n\tLuas jajargenjang : %.2f", LuasJajargenjang(x,y,z));
+       printf("\n\tKeliling jajargenjang : %.2f", KllJajargenjang(x,y,z));
+
+	end:;	
+}
+
 
 float LuasPersegiPanjang(float a, float b){ // a = panjang, b = lebar
        return(a*b); // (a*b) adalah rumus luas persegi panjang
@@ -174,4 +316,30 @@ float KllJajargenjang(float a, float b, float t){
        */
        
        return(2*(a+b));
+}
+
+int validasi(char* x){
+      int len = strlen(x);
+      int valid = 1;
+
+     	for(int i = 0; i<len; i++){
+              if(x[i] == '.'){
+                     continue;
+              }
+              
+              if(!isdigit(x[i])){
+                     valid = 0;
+                     break;
+              }
+       }
+
+      return valid;
+}
+
+float konversi(char* x){
+      float y;
+
+      y = atof(x);
+
+      return y;
 }
