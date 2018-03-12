@@ -199,7 +199,7 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // pake return aja buat end prosedur
       	}
        //luas sisi
        printf("\n\tMasukkan luas sisi  : "); scanf("%s", &input);
@@ -208,7 +208,7 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return;
       	}
        //tinggi
        printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
@@ -217,13 +217,11 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return;
       	}  
 
        HitungVolumeLimas(s, t);
-       HitungLuasLimas(s, ls);  
-
-       end:;  
+       HitungLuasLimas(s, ls);   
 }
 
 void Prisma(){
