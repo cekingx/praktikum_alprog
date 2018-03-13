@@ -19,7 +19,7 @@ int main(){
 }
 
 void menu(){
-       char input1[10], input2[10];
+       char input[10];
        float x, y;
        int pilihan;
        char ulang;
@@ -32,26 +32,37 @@ void menu(){
               printf("\n\t3. Perkalian");
               printf("\n\t4. Pembagian");
               printf("\n\t5. Sisa hasil bagi");
-              printf("\n\n\tMasukkan pilihan anda : ");
-              scanf("%d", &pilihan);
-              system("cls");
+              printf("\n\n\tMasukkan pilihan anda : "); scanf("%s", &input);
               
-              printf("\n\tMasukkan bilangan pertama : "); scanf("%s", &input1);
-              if(validasi(input1) == 1){
-                     x = konversi(input1);
-              }
-              else{
-                     printf("Inputan anda mengandung karakter yang tidak valid \n");
-                     goto loop; // goto statement
+              if(validasi(input) == 1){ //validasi input berupa bilangan
+			pilihan = atoi(input);
+		}
+		else{
+			printf("Inputan anda mengandung karakter yang tidak valid \n");
+			goto loop; // loncat ke bagian akhir
+		}
+
+              if(pilihan > 5){ // validasi input tidak melebihi menu
+                     printf("Inputan anda melebihi menu yang tersedia \n");
+                     goto loop;
               }
 
-              printf("\tMasukkan bilangan kedua  : "); scanf("%s", &input2);
-              if(validasi(input2) == 1){
-                     y = konversi(input2);
+              printf("\n\tMasukkan bilangan pertama : "); scanf("%s", &input);
+              if(validasi(input) == 1){ //validasi input berupa bilangan
+                     x = konversi(input);
               }
               else{
                      printf("Inputan anda mengandung karakter yang tidak valid \n");
-                     goto loop; // goto statement
+                     goto loop; // loncat ke bagian akhir
+              }
+
+              printf("\tMasukkan bilangan kedua  : "); scanf("%s", &input);
+              if(validasi(input) == 1){ //validasi input berupa bilangan
+                     y = konversi(input);
+              }
+              else{
+                     printf("Inputan anda mengandung karakter yang tidak valid \n");
+                     goto loop; // loncat ke bagian akhir
               }
               
               switch(pilihan){
@@ -76,7 +87,7 @@ void menu(){
                             break;
                      }
               }
-              loop: // goto statement
+              loop: //bagian akhir loop
               printf("\n\n\tUlangi (y/t) ? ");
               scanf("%s", &ulang);
        }while(ulang == 'y' || ulang == 'Y');

@@ -36,6 +36,7 @@ int main() {
 void menu(){
        float r, x, y, z;
        int pilihan;
+	char input[10];
        char ulang;
        
        do{
@@ -47,9 +48,19 @@ void menu(){
               printf("\n\t3. Lingkaran");
               printf("\n\t4. Trapesium");
               printf("\n\t5. Jajargenjang");
-              printf("\n\n\tMasukkan pilihan anda : ");
-              scanf("%d", &pilihan);
-              system("cls");
+              printf("\n\n\tMasukkan pilihan anda : "); scanf("%s", &input);
+		if(validasi(input) == 1){ // validasi input berupa bilangan
+			pilihan = atoi(input);
+		}
+		else{
+			printf("Inputan anda mengandung karakter yang tidak valid \n");
+			goto end;
+		}
+
+		if(pilihan > 5){ // validasi input tidak melebihi menu
+                     printf("Inputan anda melebihi menu yang tersedia \n");
+                     goto loop;
+              }
               
               switch(pilihan){
                      case 1:{
@@ -73,6 +84,7 @@ void menu(){
                             break;
                      }
               }
+		end:
               printf("\n\n\tUlangi (y/t)? ");
               scanf("%s", &ulang);
        }while(ulang == 'y' || ulang == 'Y');
@@ -89,7 +101,7 @@ void PersegiPanjang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 	// lebar
 	printf("\n\tMasukkan lebar    : "); scanf("%s", &input2);
@@ -98,7 +110,7 @@ void PersegiPanjang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 	printf("\n\tLuas persegi panjang  : %.2f", LuasPersegiPanjang(x, y));
        printf("\n\tKeliling persegi panjang : %.2f", KllPersegiPanjang(x, y));
@@ -117,7 +129,7 @@ void SegitigaSembarang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Sisi B
@@ -127,7 +139,7 @@ void SegitigaSembarang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Sisi C
@@ -137,7 +149,7 @@ void SegitigaSembarang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 	
 	printf("\n\tLuas segitiga sembarang  : %.2f", LuasSegitigaSembarang(x, y, z));
@@ -156,7 +168,7 @@ void Lingkaran(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 	printf("\n\tLuas lingkaran  : %.2f", LuasLingkaran(r));
        printf("\n\tKeliling lingkaran : %.2f", KllLingkaran(r));
@@ -174,7 +186,7 @@ void Trapesium(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Sisi bawah
@@ -184,7 +196,7 @@ void Trapesium(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Tinggi
@@ -194,7 +206,7 @@ void Trapesium(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	printf("\n\tLuas trapesium  : %.2f", LuasTrapesium(x,y,z));
@@ -214,7 +226,7 @@ void Jajargenjang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Sisi miring
@@ -224,7 +236,7 @@ void Jajargenjang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	//Tinggi
@@ -234,7 +246,7 @@ void Jajargenjang(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
 	printf("\n\tLuas jajargenjang : %.2f", LuasJajargenjang(x,y,z));

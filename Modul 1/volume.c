@@ -92,6 +92,7 @@ int main(){
 
 void menu(){
        float p, l, t, s, ls, r;
+	char input[10];
        int pilihan;
        char ulang;
        
@@ -104,8 +105,19 @@ void menu(){
               printf("\n\t3. Limas segitiga sama sisi");
               printf("\n\t4. Prisma segitiga sama sisi");
               printf("\n\t5. Tabung");
-              printf("\n\n\tMasukkan pilihan anda : ");
-              scanf("%d", &pilihan);
+              printf("\n\n\tMasukkan pilihan anda : "); scanf("%s", &input);
+		if(validasi(input) == 1){ // validasi input berupa bilangan
+			pilihan = atoi(input);
+		}
+		else{
+			printf("Inputan anda mengandung karakter yang tidak valid \n");
+			goto end;
+		}
+
+		if(pilihan > 5){ // validasi input tidak melebihi menu
+                     printf("Inputan anda melebihi menu yang tersedia \n");
+                     goto loop;
+              }
               
               switch(pilihan){
                      case 1:{
@@ -129,6 +141,7 @@ void menu(){
                             break;
                      }
               }
+		end:
               printf("\n\n\tUlangi (y/t)? ");
               scanf("%s", &ulang);
        }while(ulang == 'y' || ulang == 'Y');
@@ -144,7 +157,7 @@ void Balok(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
        //lebar
        printf("\n\tMasukkan lebar  : "); scanf("%s", &input);
@@ -153,7 +166,7 @@ void Balok(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
        //tinggi
        printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
@@ -162,12 +175,11 @@ void Balok(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
        
        HitungVolumeBalok(p, l, t);
        HitungLuasBalok(p, l, t);
-       end:;
 }
 
 void Bola(){
@@ -179,7 +191,7 @@ void Bola(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
        HitungVolumeBola(r);
@@ -199,7 +211,7 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		return; // pake return aja buat end prosedur
+		return; // lompat ke akhir prosedur
       	}
        //luas sisi
        printf("\n\tMasukkan luas sisi  : "); scanf("%s", &input);
@@ -208,7 +220,7 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		return;
+		return; // lompat ke akhir prosedur
       	}
        //tinggi
        printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
@@ -217,7 +229,7 @@ void Limas(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		return;
+		return; // lompat ke akhir prosedur
       	}  
 
        HitungVolumeLimas(s, t);
@@ -235,7 +247,7 @@ void Prisma(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
        //tinggi
        printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
@@ -244,7 +256,7 @@ void Prisma(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
 
        HitungVolumePrisma(s, t);
@@ -264,7 +276,7 @@ void Tabung(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}
        //tinggi
        printf("\n\tMasukkan tinggi  : "); scanf("%s", &input);
@@ -273,7 +285,7 @@ void Tabung(){
       	}
      	else{
 		printf("Inputan anda mengandung karakter yang tidak valid \n");
-		goto end; // lompat ke akhir prosedur
+		return; // lompat ke akhir prosedur
       	}  
 
        HitungVolumeTabung(r, t);
