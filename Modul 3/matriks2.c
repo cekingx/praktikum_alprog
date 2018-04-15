@@ -17,7 +17,7 @@
  */
 
 void PerkalianKonstan();
-void PerkailanMatriks();
+void PerkalianMatriks();
 void PenjumlahanMatriks();
 void Transpose();
 void outMatriks(float **mat);
@@ -26,12 +26,11 @@ void menu();
 int validasi(char* x);
 float konversi2F(char* x);
 int konversi2I(char* x);
-float **inMatriks();
+float **inMatriks(int baris, int kolom);
 
-int baris, kolom;
 
 int main(){
-       PerkalianKonstan();
+       menu();
 
        return 0;
 }
@@ -69,7 +68,7 @@ void menu(){
 				PerkalianKonstan();
 				break;
 			case 2:
-				PerkailanMatriks();
+				PerkalianMatriks();
 				break;
 			case 3:
 				PenjumlahanMatriks();
@@ -105,203 +104,268 @@ void menu(){
 
 void PerkalianKonstan(){
        float matriks[10][10];
+       char input1[10], input2[10];
        float **mat;
        int i,j,x;
+       int baris, kolom; //ordo matriks
 
-       //1. input matriks
-       mat = inMatriks();
-       
-       for(i = 0; i<baris; i++){
-              for(j = 0;j<kolom;j++){
-                     matriks[i][j] = *(*(mat + i) + j);
+       //input matriks
+       ulangOrdo:
+       printf("Masukkan ordo matriks \n"); scanf("%s %s", &input1, &input2);
+       if(validasi(input1) != 0 && validasi(input2) != 0 ){
+              printf("Masukkan elemen matriks\n");
+              baris = konversi2I(input1);
+              kolom = konversi2I(input2);
+
+              mat = inMatriks(baris,kolom);
+              
+              for(i = 0; i<baris; i++){
+                     for(j = 0;j<kolom;j++){
+                            matriks[i][j] = *(*(mat + i) + j);
+                     }
               }
-       }
 
-       printf("Matriks \n");
-       for (i = 0; i < baris; i++){
-              for (j = 0; j < kolom; j++){
-                     printf(" %.1f", matriks[i][j]);
+              printf("Matriks \n");
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            printf(" %4.1f", matriks[i][j]);
+                     }
+                     printf("\n");
               }
-              printf("\n");
-       }
-       //2. input pengali
-       printf("\nMasukkan pengali > "); scanf("%d", &x);
-
-       //3. proses perkalian
-       for (i = 0; i < baris; i++){
-              for (j = 0; j < kolom; j++){
-                     matriks[i][j] *= x;
-              }
-       }
-       //4. output hasil
-       printf("Matriks \n");
-       for (i = 0; i < baris; i++){
-              for (j = 0; j < kolom; j++){
-                     printf(" %4.1f", matriks[i][j]);
-              }
-              printf("\n");
-       }
-       
-}
-/*
-void PerkailanMatriks(){
-       int matriks1[10][10], matriks2[10][10], matriks3[10][10];
-       int i, j, k; // counter for loop 
-       int m1, n1; // ordo matriks 1
-       int m2, n2; // ordo matriks 1
-
-
-       //1. input matriks
-       printf("Masukkan ordo matriks pertama \n");
-       scanf("%d %d", &m1, &n1);
-
-       printf("Masukkan elemen matriks 1 \n");
-       for (i = 0; i < m1; i++){
-              for (j = 0; j < n1; j++){
-                     scanf("%d", &matriks1[i][j]);
-              }
-       }
-
-       printf("Masukkan ordo matriks kedua \n");
-       scanf("%d %d", &m2, &n2);
-
-       if(n1 == m2){
               //2. input pengali
-              printf("Masukkan elemen matriks 2 \n");
-              for (i = 0; i < m2; i++){
-                     for (j = 0; j < n2; j++){
-                            scanf("%d", &matriks2[i][j]);
-                     }
-              }
+              printf("\nMasukkan pengali > "); scanf("%d", &x);
 
-              //3. tampilkan kedua matriks
-              printf("Matriks 1 \n");
-              for (i = 0; i < m1; i++){
-                     for (j = 0; j < n1; j++){
-                            printf(" %d", matriks1[i][j]);
+              //3. proses perkalian
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            matriks[i][j] *= x;
                      }
-                     printf("\n");
-              }
-
-              printf("Matriks 2 \n");
-              for (i = 0; i < m2; i++){
-                     for (j = 0; j < n2; j++){
-                            printf(" %d", matriks2[i][j]);
-                     }
-                     printf("\n");
               }
               //4. output hasil
-              printf("\nMatriks hasil perkalian\n");
-              for (i=0;i<m1;i++){
-                     for (j=0;j<n2;j++){              
-                     matriks3[i][j] = 0;
-                            for (k=0;k<m2;k++){
-                                   matriks3[i][j] += matriks1[i][k] * matriks2[k][j];
-                            }
-                            printf("%d", matriks3[i][j]);            
-                            if (j == (n2-1)) printf("\n");
-                            else printf(" ");
+              printf("Matriks \n");
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            printf(" %4.1f", matriks[i][j]);
                      }
+                     printf("\n");
               }
        }
        else{
-              printf("Absis matriks kedua harus sama dengan ordinat matriks pertama");
+              printf("Input anda salah!\n");
+              goto ulangOrdo;
        }
-       
+}
+
+void PerkalianMatriks(){
+       float matriks1[10][10], matriks2[10][10], matriks3[10][10];
+       int i, j, k; // counter for loop 
+       int baris1, kolom1, baris2, kolom2; //ordo matriks
+       float **mat; //pointer to float untuk matriks
+       char input1[10], input2[10];
+
+       ulangOrdo1:
+       //input ordo matriks pertama
+       printf("Masukkan ordo matriks pertama\n"); scanf("%s %s", &input1, &input2);
+       if(validasi(input1) != 0 && validasi(input2) != 0 ){
+              printf("Masukkan elemen matriks pertama\n");
+              baris1 = konversi2I(input1);
+              kolom1 = konversi2I(input2);
+
+              //input matriks pertama
+              mat = inMatriks(baris1,kolom1);
+
+              //assign dari pointer ke array
+              for(i = 0; i<baris1; i++){
+                     for(j = 0;j<kolom1;j++){
+                            matriks1[i][j] = *(*(mat + i) + j);
+                     }
+              }
+
+              ulangOrdo2:
+              //input ordo matriks kedua
+              printf("Masukkan ordo matriks kedua\n"); scanf("%s %s", &input1, &input2);
+              if(validasi(input1) != 0 && validasi(input2) != 0 ){
+                     printf("Masukkan elemen matriks kedua\n");
+                     baris2 = konversi2I(input1);
+                     kolom2 = konversi2I(input2);
+
+                     if(kolom1 == baris2){
+                            //input matriks kedua
+                            mat = inMatriks(baris2,kolom2);
+
+                            //assign dari pointer ke array
+                            for(i = 0; i<baris2; i++){
+                                   for(j = 0;j<kolom2;j++){
+                                          matriks2[i][j] = *(*(mat + i) + j);
+                                   }
+                            }
+
+                            printf("Matriks 1 \n");
+                            for (i = 0; i < baris1; i++){
+                                   for (j = 0; j < kolom1; j++){
+                                          printf(" %4.1f", matriks1[i][j]);
+                                   }
+                                   printf("\n");
+                            }
+
+                            printf("Matriks 2 \n");
+                            for (i = 0; i < baris2; i++){
+                                   for (j = 0; j < kolom2; j++){
+                                          printf(" %4.1f", matriks2[i][j]);
+                                   }
+                                   printf("\n");
+                            }
+
+                            //output hasil
+                            printf("\nMatriks hasil perkalian\n");
+                            for (i=0;i<baris1;i++){
+                                   for (j=0;j<kolom2;j++){              
+                                          matriks3[i][j] = 0;
+                                          for (k=0;k<baris2;k++){
+                                                 matriks3[i][j] += matriks1[i][k] * matriks2[k][j];
+                                          }
+                                          printf(" %4.1f", matriks3[i][j]);            
+                                          if (j == (kolom2-1)) printf("\n");
+                                          else printf(" ");
+                                   }
+                            }
+                     }
+                     else{
+                            printf("Input anda salah\n");
+                            printf("kolom matriks pertama harus sama dengan baris matriks kedua\n");
+                            goto ulangOrdo2;
+                     }
+              }
+              else{
+                     printf("Input anda salah!\n");
+                     goto ulangOrdo2;
+              }
+       }
+       else{
+              printf("Input anda salah!\n");
+              goto ulangOrdo1;
+       }       
 }
 
 void PenjumlahanMatriks(){
-       int matriks1[10][10], matriks2[10][10];
+       float matriks1[10][10], matriks2[10][10];
        int i, j; // counter for loop 
-       int m, n; // ordo matriks 
+       int baris, kolom; //ordo matriks
+       float **mat; //pointer to float untuk matriks
+       char input1[10], input2[10]; 
 
-       //1. input matriks
-       printf("Masukkan ordo matriks yang akan dijumlahkan \n");
-       scanf("%d %d", &m, &n);
+	ulangOrdo:
+       printf("Masukkan ordo matriks \n"); scanf("%s %s", &input1, &input2);
+       if(validasi(input1) != 0 && validasi(input2) != 0 ){
+              baris = konversi2I(input1);
+              kolom = konversi2I(input2);
 
-       printf("Masukkan elemen matriks 1 \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     scanf("%d", &matriks1[i][j]);
-              }
-       }
-
-       printf("Masukkan elemen matriks 2 \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     scanf("%d", &matriks2[i][j]);
-              }
-       }
-
-       //2. tampilkan matriks 1 dan matriks 2
-       printf("Matriks 1 \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     printf(" %d", matriks1[i][j]);
-              }
-              printf("\n");
-       }
-
-       printf("Matriks 2 \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     printf(" %d", matriks2[i][j]);
-              }
-              printf("\n");
-       }
-
-       //3. penjumlahan kedua matriks
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     matriks1[i][j] += matriks2[i][j];
-              }
-       }
-
-       //4. output
-       printf("Hasil penjumlahan matriks ordo %d x %d \n", m, n);
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     printf(" %3d", matriks1[i][j]);
-              }
-              printf("\n");
-       }
-       
+		//input elemen matriks pertama
+		printf("Masukkan elemen matriks pertama\n");
+              mat = inMatriks(baris,kolom);
               
+              for(i = 0; i<baris; i++){
+                     for(j = 0;j<kolom;j++){
+                            matriks1[i][j] = *(*(mat + i) + j);
+                     }
+              }
+
+		//input elemen matriks kedua
+		printf("Masukkan elemen matriks kedua\n");
+              mat = inMatriks(baris,kolom);
+              
+              for(i = 0; i<baris; i++){
+                     for(j = 0;j<kolom;j++){
+                            matriks2[i][j] = *(*(mat + i) + j);
+                     }
+              }
+
+		//output matriks pertama
+              printf("Matriks 1\n");
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            printf(" %4.1f", matriks1[i][j]);
+                     }
+                     printf("\n");
+              }
+
+		//output matriks kedua
+		printf("Matriks 2\n");
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            printf(" %4.1f", matriks2[i][j]);
+                     }
+                     printf("\n");
+              }
+
+		//jumlahkan kedua matriks
+		for (i = 0; i < baris; i++){
+			for (j = 0; j < kolom; j++){
+				matriks1[i][j] += matriks2[i][j];
+			}
+		}
+
+		printf("Hasil penjumlahan matriks ordo %d x %d \n", baris, kolom);
+		for (i = 0; i < baris; i++){
+			for (j = 0; j < kolom; j++){
+				printf(" %4.1f", matriks1[i][j]);
+			}
+			printf("\n");
+		}  
+       }
+       else{
+              printf("Input anda salah!\n");
+              goto ulangOrdo;
+       }  
 }
 
 void Transpose(){
-       int matriks[10][10];
+       float matriks[10][10];
        int i, j; // counter for loop 
-       int m, n; // ordo matriks
+       int baris, kolom; //ordo matriks
+       float **mat; //pointer to float untuk matriks
+       char input1[10], input2[10]; 
 
-       //1. input matriks
-       printf("Masukkan ordo matriks \n");
-       scanf("%d %d", &m, &n);
-       printf("Masukkan elemen matriks \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     scanf("%d", &matriks[i][j]);
+	ulangOrdo:
+       printf("Masukkan ordo matriks \n"); scanf("%s %s", &input1, &input2);
+       if(validasi(input1) != 0 && validasi(input2) != 0 ){
+              baris = konversi2I(input1);
+              kolom = konversi2I(input2);
+
+		//input elemen matriks 
+		printf("Masukkan elemen matriks pertama\n");
+              mat = inMatriks(baris,kolom);
+              
+              for(i = 0; i<baris; i++){
+                     for(j = 0;j<kolom;j++){
+                            matriks[i][j] = *(*(mat + i) + j);
+                     }
               }
+
+		//output matriks
+              printf("Matriks\n");
+              for (i = 0; i < baris; i++){
+                     for (j = 0; j < kolom; j++){
+                            printf(" %4.1f", matriks[i][j]);
+                     }
+                     printf("\n");
+              }
+
+		 //2. output hasil
+		printf("Transpose matriks \n");
+		for (j = 0; j < kolom; j++){
+			for (i = 0; i < baris; i++){
+				printf(" %4.1f", matriks[i][j]);
+			}
+			printf("\n");
+		}
        }
-
-       printf("Matriks \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
-                     printf(" %d", matriks[i][j]);
-              }
-              printf("\n");
-       }
-
-       //2. output hasil
-       printf("Transpose matriks \n");
-       for (j = 0; j < n; j++){
-              for (i = 0; i < m; i++){
-                     printf(" %d", matriks[i][j]);
-              }
-              printf("\n");
+       else{
+              printf("Input anda salah!\n");
+              goto ulangOrdo;
        }
 }
-*/
+
 int validasi(char* x){
 	int len = strlen(x);
 	int valid = 1;
@@ -336,47 +400,36 @@ int konversi2I(char* x){
 	return y;
 }
 
-float **inMatriks(){
+float **inMatriks(int baris, int kolom){
        char input1[10], input2[10];
        float **mat;
 
-       ulang1:
-       printf("Masukkan ordo matriks > "); scanf("%s %s",&input1, &input2);
-       if(validasi(input1) != 0 && validasi(input2) != 0 ){
-              baris = konversi2I(input1);
-              kolom = konversi2I(input2);
+       //alokasi memori untuk baris pada matriks
+       mat = (float**)malloc(baris * sizeof(float*));
 
-              //alokasi memori untuk baris pada matriks
-              mat = (float**)malloc(baris * sizeof(float*));
+       //alokasi memori untuk kolom pada setiap baris
+       for(int i = 0; i<baris; i++){
+              mat[i] = (float *)malloc(kolom * sizeof(float));
+       }
 
-              //alokasi memori untuk kolom pada setiap baris
-              for(int i = 0; i<baris; i++){
-                     mat[i] = (float *)malloc(kolom * sizeof(float));
-              }
-
-              //input elemen matriks
-              for(int i = 0; i<baris; i++){
-                     for(int j = 0; j<kolom; j++){
-                            ulang2:
-                            printf("Masukkan nilai matriks[%d][%d] > ",i,j); scanf("%s",&input1);
-                            if(validasi(input1) != 0){
-                                   mat[i][j] = konversi2F(input1);
-                            }
-                            else{
-                                   printf("Input anda salah!\n");
-                                   goto ulang2;
-                            }
+        //input elemen matriks
+        for(int i = 0; i<baris; i++){
+              for(int j = 0; j<kolom; j++){
+                     ulang2:
+                     printf("Masukkan nilai matriks[%d][%d] > ",i,j); scanf("%s",&input1);
+                     if(validasi(input1) != 0){
+                            mat[i][j] = konversi2F(input1);
+                     }
+                     else{
+                            printf("Input anda salah!\n");
+                            goto ulang2;
                      }
               }
-       }
-       else{
-              printf("Input anda salah!\n");
-              goto ulang1;
        }
 
        return mat;
 }
-
+/*
 void outMatriks(float **mat){
 
        for(int i = 0; i<baris; i++){
@@ -387,4 +440,4 @@ void outMatriks(float **mat){
               printf("\n");
        }
 }
-
+*/
