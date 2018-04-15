@@ -20,17 +20,22 @@ void PerkalianKonstan();
 void PerkailanMatriks();
 void PenjumlahanMatriks();
 void Transpose();
+void outMatriks(float **mat);
 void menu();
 
 int validasi(char* x);
-int validasi_menu(char* x);
-float konversi(char* x);
+float konversi2F(char* x);
+int konversi2I(char* x);
+float **inMatriks();
+
+int baris, kolom;
 
 int main(){
-       menu();
+       PerkalianKonstan();
 
        return 0;
 }
+
 
 void menu(){
        char input[10];
@@ -51,8 +56,8 @@ void menu(){
 		printf("\n\n\tMasukkan pilihan anda : ");
 		scanf("%s", &input);
     
-		if(validasi_menu(input) == 1){
-			pilihan = atoi(input);
+		if(validasi(input) == 1){
+			pilihan = konversi2I(input);
 		}else{
 			printf("\n\n\tINPUTAN ANDA MENGANDUNG KARAKTER YANG TIDAK VALID! \n\tSILAKAN INPUT DENGAN BENAR!!\n\n");
 			system("pause");
@@ -97,46 +102,24 @@ void menu(){
 	}while(ulang != 't' || ulang != 'T');
 }
 
+
 void PerkalianKonstan(){
        float matriks[10][10];
-       int i, j; // counter for loop 
-       int m, n; // ordo matriks
-       int x; // variabel pengali
-       char input1[10], input2[10];
+       float **mat;
+       int i,j,x;
 
        //1. input matriks
-       ulangOrdo:
-       fflush(stdin);
-       printf("Masukkan ordo matriks \n"); scanf("%s %s", &input1, &input2);
-       if(validasi(input1) != 0 && validasi(input2) != 0 ){
-              ulangElemen1:
-              printf("Masukkan elemen matriks\n");
-              m = konversi(input1);
-              n = konversi(input2);
-
-              for (i = 0; i < m; i++){
-                     for (j = 0; j < n; j++){
-                            scanf("%s", &input1);
-                            if(validasi(input1) != 0){
-                                   matriks[i][j] = konversi(input1); 
-                            }
-                            else{
-                                   printf("Input anda salah!\n");
-                                   fflush(stdin);
-                                   goto ulangElemen1;
-                            }
-                     }
+       mat = inMatriks();
+       
+       for(i = 0; i<baris; i++){
+              for(j = 0;j<kolom;j++){
+                     matriks[i][j] = *(*(mat + i) + j);
               }
        }
-       else{
-              printf("Input anda salah!\n");
-              goto ulangOrdo;
-       }
-       
 
        printf("Matriks \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
+       for (i = 0; i < baris; i++){
+              for (j = 0; j < kolom; j++){
                      printf(" %.1f", matriks[i][j]);
               }
               printf("\n");
@@ -145,22 +128,22 @@ void PerkalianKonstan(){
        printf("\nMasukkan pengali > "); scanf("%d", &x);
 
        //3. proses perkalian
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
+       for (i = 0; i < baris; i++){
+              for (j = 0; j < kolom; j++){
                      matriks[i][j] *= x;
               }
        }
        //4. output hasil
        printf("Matriks \n");
-       for (i = 0; i < m; i++){
-              for (j = 0; j < n; j++){
+       for (i = 0; i < baris; i++){
+              for (j = 0; j < kolom; j++){
                      printf(" %4.1f", matriks[i][j]);
               }
               printf("\n");
        }
        
 }
-
+/*
 void PerkailanMatriks(){
        int matriks1[10][10], matriks2[10][10], matriks3[10][10];
        int i, j, k; // counter for loop 
@@ -318,7 +301,7 @@ void Transpose(){
               printf("\n");
        }
 }
-
+*/
 int validasi(char* x){
 	int len = strlen(x);
 	int valid = 1;
@@ -337,7 +320,7 @@ int validasi(char* x){
 	return valid;
 }
 
-float konversi(char* x){
+float konversi2F(char* x){
 	float y;
 	
 	y = atof(x);
@@ -345,20 +328,63 @@ float konversi(char* x){
 	return y;
 }
 
-int validasi_menu(char* x){
-	int len = strlen(x);
-	int valid = 1;
-	int i;
+int konversi2I(char* x){
+	int y;
 	
-	for(i=0; i<len; i++){
-		if(!isdigit(x[i])){
-			valid = 0;
-			break;
-		}	
-	}
-	return valid;
+	y = atoi(x);
+	
+	return y;
 }
 
-// validasi dalem for
-// ganti for pakek while
-// buat funsi khusus input matrik
+float **inMatriks(){
+       char input1[10], input2[10];
+       float **mat;
+
+       ulang1:
+       printf("Masukkan ordo matriks > "); scanf("%s %s",&input1, &input2);
+       if(validasi(input1) != 0 && validasi(input2) != 0 ){
+              baris = konversi2I(input1);
+              kolom = konversi2I(input2);
+
+              //alokasi memori untuk baris pada matriks
+              mat = (float**)malloc(baris * sizeof(float*));
+
+              //alokasi memori untuk kolom pada setiap baris
+              for(int i = 0; i<baris; i++){
+                     mat[i] = (float *)malloc(kolom * sizeof(float));
+              }
+
+              //input elemen matriks
+              for(int i = 0; i<baris; i++){
+                     for(int j = 0; j<kolom; j++){
+                            ulang2:
+                            printf("Masukkan nilai matriks[%d][%d] > ",i,j); scanf("%s",&input1);
+                            if(validasi(input1) != 0){
+                                   mat[i][j] = konversi2F(input1);
+                            }
+                            else{
+                                   printf("Input anda salah!\n");
+                                   goto ulang2;
+                            }
+                     }
+              }
+       }
+       else{
+              printf("Input anda salah!\n");
+              goto ulang1;
+       }
+
+       return mat;
+}
+
+void outMatriks(float **mat){
+
+       for(int i = 0; i<baris; i++){
+              for(int j = 0;j<kolom;j++){
+                     printf("%.1f",*(*(mat + i) + j));
+                     printf(" ");
+              }
+              printf("\n");
+       }
+}
+
