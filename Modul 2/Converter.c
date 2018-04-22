@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 /*
  * Desimal ke Binary
@@ -22,10 +24,15 @@
 
 */
 
-int DesToBin(int x);
+long long int DesToBin(int x);
 int BinToDes(int x);
+int validasiDec(char* x);
+int validasiBin(char* x);
+int konversi(char *x);
 
 void menu();
+void Biner();
+void Desimal();
 
 int main(){
        menu();
@@ -34,33 +41,71 @@ int main(){
 }
 
 void menu(){
-       int menu; // pilih menu
-       int des; // input desimal
+       char menu; // pilih menu
        int bin; // input biner
        char ulang;
 
-       do{
+       start:
               system("cls");
               printf("1. Konversi Dari Desimal ke Biner \n");
               printf("2. Konversi dari Biner ke Desimal \n");
-              printf("Pilih menu > "); scanf("%d", &menu);
+              printf("Pilih menu > "); scanf("%s", &menu);
               switch(menu){
-                     case 1:{
-                            printf("Masukkan bilangan desimal > "); scanf("%d", &des);
-                            printf("Hasil konversi adalah %ld \n", DesToBin(des));
+                     case '1':{
+                            Desimal();
                             break;
                      }
-                     case 2:{
-                            printf("Masukkan bilangan biner > "); scanf("%ld", &bin);
-                            printf("Hasil konversi adalah %d \n", BinToDes(bin));
-                            break;
+                     case '2':{
+				Biner();
+				break;
+                     }
+                     default:{
+                           printf("Input anda salah!\n");
                      }
               }
-              printf("Ingin mengulang konversi [y/t] > "); scanf("%s", &ulang);
-       }while(ulang == 'y' || ulang == 'Y');
+
+              do{
+			printf("Ulangi (y/t) > ");scanf("%s", &ulang);
+			
+			if(ulang == 'y' || ulang == 'Y'){
+				goto start;
+			}else if(ulang == 't' || ulang == 'T'){
+				exit(0);
+			}else{
+				printf("Input anda salah!\n");
+			}	
+		}while(ulang != 't' || ulang != 'T');
 }
 
-int DesToBin(int x){
+void Biner(){
+	char input[25];
+	int bin;
+
+	printf("Masukkan bilangan biner > "); scanf("%s", &input);
+	if(validasiBin(input)==1){
+		bin = konversi(input);
+		printf("Hasil konversi adalah %d \n", BinToDes(bin));
+	}
+	else{
+		printf("Input anda salah!\n");
+	}
+}
+
+void Desimal(){
+	char input[25];
+	long long int des;
+
+	printf("Masukkan bilangan desimal > "); scanf("%s", &input);
+	if(validasiDec(input)==1){
+		des = konversi(input);
+		printf("Hasil konversi adalah %ld \n", DesToBin(des));
+	}
+	else{
+		printf("Input anda salah!\n");
+	}
+}
+
+long long int DesToBin(int x){
        int binary = 0;
        int sisa;
        int pangkat = 1;
@@ -89,4 +134,49 @@ int BinToDes(int x){
        }
 
        return binary;
+}
+
+int validasiDec(char* x){
+       int len = strlen(x);
+       int valid = 1;
+
+       for(int i = 0; i<len; i++){
+              if(!isdigit(x[i])){
+                     valid = 0;
+                     break;
+              }
+       }
+
+       return valid;
+}
+
+int validasiBin(char* x){
+       int len = strlen(x);
+       int valid = 1;
+
+       for(int i = 0; i<len; i++){
+              if(!isdigit(x[i])){
+                     valid = 0;
+                     break;
+              }
+		else{
+			if((int)(x[i]-'0') == 0 || (int)(x[i]-'0') == 1){
+				valid = 1;
+              	}
+			else{
+				valid = 0;
+				break;
+			}
+		}
+       }
+
+       return valid;
+}
+
+int konversi(char *x){
+       int y;
+
+       y = atoi(x);
+
+       return y;
 }

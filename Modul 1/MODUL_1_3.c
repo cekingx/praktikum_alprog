@@ -99,23 +99,23 @@ void menu(){
 		printf("\n\n\t============================================");
 		printf("\n\t    Menghitung Volume dan Luas Permukaan");
 		printf("\n\t============================================");
-	    printf("\n\t\t1. Balok");
-	    printf("\n\t\t2. Bola");
-	    printf("\n\t\t3. Limas segitiga sama sisi");
-	    printf("\n\t\t4. Prisma segitiga sama sisi");
-	    printf("\n\t\t5. Tabung");
-	    printf("\n\t\t6. Keluar");
-	    printf("\n\t============================================");
-	    printf("\n\n\tMasukkan pilihan anda : ");
-	    scanf("%s", &input);
+		printf("\n\t\t1. Balok");
+		printf("\n\t\t2. Bola");
+		printf("\n\t\t3. Limas segitiga sama sisi");
+		printf("\n\t\t4. Prisma segitiga sama sisi");
+		printf("\n\t\t5. Tabung");
+		printf("\n\t\t6. Keluar");
+		printf("\n\t============================================");
+		printf("\n\n\tMasukkan pilihan anda : ");
+		scanf("%s", &input);
     
-   	    if(validasi_menu(input) == 1){
-    		pilihan = atoi(input);
-    	}else{
-    		printf("\n\n\tINPUTAN ANDA MENGANDUNG KARAKTER YANG TIDAK VALID! \n\tSILAKAN INPUT DENGAN BENAR!!\n\n");
-    		system("pause");
-    		goto start;
-    	} 
+		if(validasi_menu(input) == 1){
+			pilihan = atoi(input);
+		}else{
+			printf("\n\n\tINPUTAN ANDA MENGANDUNG KARAKTER YANG TIDAK VALID! \n\tSILAKAN INPUT DENGAN BENAR!!\n\n");
+			system("pause");
+			goto start;
+		} 
     	
 		switch(pilihan){
 			case 1:
