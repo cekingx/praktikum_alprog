@@ -22,10 +22,62 @@ void sorting();
 void sequential_search(int array[], int size, int n);
 void binary_search(int array[], int size, int n);
 void searching();
+void menu();
+void subMenu1();
+void subMenu2();
 
 
 int main(){
-       int size;
+       menu();
+       
+       return 0;
+}
+
+void menu(){
+       int pilihan;
+	char input[10];
+       char ulang;
+       
+       do{
+              system("cls");
+              printf("\n\n\t\t  MENU");
+              printf("\n\n\tSorting dan Searching");
+              printf("\n\n\t1. Sorting");
+              printf("\n\t2. Searching");
+		printf("\n");
+		loop:
+              printf("\n\tMasukkan pilihan anda : "); scanf("%s", &input);
+		if(validasi(input) == 1){ // validasi input berupa bilangan
+			pilihan = atoi(input);
+		}
+		else{
+			printf("\tInputan anda mengandung karakter yang tidak valid \n");
+			goto loop;
+		}
+
+		if(pilihan > 2){ // validasi input tidak melebihi menu
+                     printf("\tInputan anda melebihi menu yang tersedia \n");
+                     goto loop;
+              }
+              
+              switch(pilihan){
+                     case 1:{
+                            subMenu1();
+                            break;
+                     }
+                     case 2:{
+                            subMenu2();
+                            break;
+                     }
+              }
+		end:
+              printf("\n\n\tUlangi (y/t)? ");
+              scanf("%s", &ulang);
+       }while(ulang == 'y' || ulang == 'Y');
+}
+
+void subMenu1(){
+	int size;
        int x;
        char input[10];
 
@@ -34,6 +86,45 @@ int main(){
        if(validasi(input) == 1 && konversi(input) <= 64000){
               size = konversi(input);
               sorting(size);
+       }
+       else if(konversi(input) > 64000){
+              printf("Ukuran melebihi 64000 angka\n");
+              goto loop1;
+       }
+       else{
+              printf("Input anda salah!\n");
+              goto loop1;
+       }
+}
+void subMenu2(){
+	int size;
+       int x;
+       char input[10];
+	int i, n;
+	time_t t;
+
+       loop1:
+       printf("Masukkan size > "); scanf("%s", &input);
+       if(validasi(input) == 1 && konversi(input) <= 64000){
+              size = konversi(input);
+
+		/* Intializes random number generator */
+		srand((unsigned) time(&t));
+
+		//assign random number to arrAcak[]
+		for( i = 0 ; i < size ; i++ ) {
+			arrAcak[i] = (rand() % size);
+		}
+
+		//assign arrAcak[] to arr[]
+		for( i = 0; i < size ; i++){
+			arr[i] = arrAcak[i];
+		}
+
+		quickSort(0, size-1);
+		printf("Bilangan\n\n");
+		printArray(arr, size);
+
               loop2:
               printf("Masukkan bilangan yang akan dicari > "); scanf("%s", &input);
               if(validasi(input) == 1 ){
@@ -54,15 +145,13 @@ int main(){
               printf("Input anda salah!\n");
               goto loop1;
        }
-       
-       return 0;
 }
 
 void sorting(int size){
        int i, n;
        time_t t;
        clock_t start_t, end_t;
-       double total_t;
+       double t_bubble, t_insertion, t_quick;
    
        /* Intializes random number generator */
        srand((unsigned) time(&t));
@@ -88,11 +177,10 @@ void sorting(int size){
        printArray(arr, size);
 
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_bubble = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
 
        //assign arrAcak[] to arr[]
-       for( i = 0; i < MAX ; i++){
+       for( i = 0; i < size ; i++){
               arr[i] = arrAcak[i];
        }
 
@@ -104,11 +192,10 @@ void sorting(int size){
        printArray(arr, size);
 
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_insertion = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
 
        //assign arrAcak[] to arr[]
-       for( i = 0; i < MAX ; i++){
+       for( i = 0; i < size ; i++){
               arr[i] = arrAcak[i];
        }
 
@@ -120,25 +207,28 @@ void sorting(int size){
        printArray(arr, size);
 
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_quick = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
+       printf("\nTotal time taken by CPU for Bubble Sort: %.3f second\n\n", t_bubble  );
+	printf("\nTotal time taken by CPU for Insertion Sort: %.3f second\n\n", t_insertion  );
+	printf("\nTotal time taken by CPU for Quick Sort: %.3f second\n\n", t_quick  );
 }
 
 void searching(int size, int x){
        clock_t start_t, end_t;
-       double total_t;
+       double t_sequential, t_binary;
 
        start_t = clock();
        sequential_search(arr, size, x);
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_sequential = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
 
        start_t = clock();
        binary_search(arr, size, x);
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_binary = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
+
+       printf("\nTotal time taken by CPU for Bubble Sort: %.3f second\n\n", t_sequential  );
+	printf("\nTotal time taken by CPU for Bubble Sort: %.3f second\n\n", t_binary  );
 }
 
 void bubbleSort(int size) {
@@ -159,11 +249,11 @@ void bubbleSort(int size) {
               //  (Bubble up the highest number)
 			
                      if(arr[j] > arr[j+1]) {
-                     temp = arr[j];
-                     arr[j] = arr[j+1];
-                     arr[j+1] = temp;
+				temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
 
-                     swapped = true;
+				swapped = true;
                      }
               }
       // if no number was swapped that means 
@@ -188,7 +278,7 @@ void insertionSort(int size) {
                      
               // select the hole position where number is to be inserted 
               holePosition = i;
-                     
+                    
               // check if previous no. is larger than value to be inserted 
               while (holePosition > 0 && arr[holePosition-1] > valueToInsert) {
                      arr[holePosition] = arr[holePosition-1];
@@ -259,8 +349,8 @@ void sequential_search(int array[], int size, int n){
     	int i;
     	for (i = 0; i < size; i++){
         	if (array[i] == n){
-            	printf("%d ditemukan pada posisi %d.\n", n, i+1);
-            	break;
+			printf("%d ditemukan pada posisi %d.\n", n, i+1);
+			break;
         	}
     	}
     	if (i == size){

@@ -375,6 +375,10 @@ int validasi(char* x){
 		if(x[i] == '.'){
 			continue;
 		}
+
+            if(x[i] == '-'){
+			continue;
+		}
 		
 		if(!isdigit(x[i])){
 			valid = 0;
