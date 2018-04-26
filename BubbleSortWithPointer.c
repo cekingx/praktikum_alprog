@@ -43,7 +43,7 @@ void sorting(int size){
        int i, n;
        time_t t;
        clock_t start_t, end_t;
-       double total_t;
+       double t_array, t_pointer;
        int *nonArr = malloc(MAX * sizeof(int));
        int arrAcak[MAX];
        int arr[MAX];
@@ -75,8 +75,7 @@ void sorting(int size){
        displayAr(arr, size);
 
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_array = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
 
        //bubbleSort2()
        start_t = clock();
@@ -86,9 +85,10 @@ void sorting(int size){
        displayPo(nonArr, size);
 
        end_t = clock();
-       total_t = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
-       printf("\nTotal time taken by CPU: %.3f second\n\n", total_t  );
+       t_pointer = ((double)(end_t - start_t)) / CLOCKS_PER_SEC;
 
+       printf("\nTotal time taken by CPU for Array   : %.3f second\n\n", t_array  );
+       printf("\nTotal time taken by CPU for Pointer : %.3f second\n\n", t_pointer  );
        
 }
 
